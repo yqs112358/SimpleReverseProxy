@@ -60,7 +60,7 @@
 
    点击页面右侧的链接，可以看到跳转到了子页面，并且仍然是正常地进行代理工作
 
-   
+   ![image-20230102214442716](assets/image-20230102214442716.png)
 
    另外，如果加载了PluginDemo中的插件，会注意到nginx.org页面的上方原有的“nginx news”字样被替换为“Proxy Server has Modified this page!“，这是插件demo工作的结果。插件位于plugins目录中，每个插件为一个动态链接库，按规范导出若干函数给代理服务器调用。服务器启动时，会加载所有插件，并在请求/响应到达时呼叫插件进行处理。
 
@@ -178,13 +178,13 @@ Content-Length: 112\r\n
 
 ```c++
 // 插件加载时调用
-extern "C" bool Init(const char* configFile)
+extern "C" bool Init(const char* configFile);
 // 插件卸载时调用
-extern "C" void Shutdown()
+extern "C" void Shutdown();
 // 有客户端请求到达时调用
-extern "C" bool ClientRequest(HttpRequestPacket *packet)
+extern "C" bool ClientRequest(HttpRequestPacket *packet);
 // 有服务端响应到达时调用
-extern "C" bool ServerResponse(HttpResponsePacket *packet)
+extern "C" bool ServerResponse(HttpResponsePacket *packet);
 ```
 
    此处的extern "C" 是为了禁用编译器的命名改编。编译时，使用-shared -fPIC编译开关（类似demo的Makefile操作），然后将生成的 .so文件复制到服务器的plugins目录中。
