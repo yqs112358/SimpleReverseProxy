@@ -1,0 +1,6 @@
+.vscode/
+core
+proxy
+PluginDemo/plugindemo.so
+plugins/
+plugins/*
