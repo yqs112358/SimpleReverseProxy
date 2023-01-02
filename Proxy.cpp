@@ -544,7 +544,6 @@ struct ClientThreadData
 // 工作线程
 void ClientThreadFunc(void *data)
 {
-    pthread_detach(pthread_self());
     ClientThreadData *threadData = (ClientThreadData *)data;
     int clientSocket = threadData->clientSocket;
     sockaddr_in clientAddr = threadData->clientAddr;
